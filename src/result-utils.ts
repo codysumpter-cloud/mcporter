@@ -116,6 +116,22 @@ function collectCallContent(raw: unknown): CollectedCallContent {
       }
       continue;
     }
+    if (typedEntry.type === 'resource') {
+      const resource = typedEntry.resource as Record<string, unknown> | undefined;
+      if (resource && typeof resource === 'object') {
+        const uri = typeof resource.uri === 'string' ? resource.uri : '';
+        if (typeof resource.text === 'string') {
+          textEntries.push(resource.text);
+          const parsed = tryParseJson(resource.text);
+          if (parsed !== null) {
+            jsonCandidates.push(parsed);
+          }
+        } else if (typeof resource.blob === 'string') {
+          textEntries.push(`[Binary resource: ${uri}]`);
+        }
+      }
+      continue;
+    }
     if (typedEntry.type !== 'text' && typedEntry.type !== 'markdown') {
       continue;
     }

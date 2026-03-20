@@ -217,6 +217,77 @@ describe('createCallResult json extraction', () => {
   });
 });
 
+describe('createCallResult resource extraction', () => {
+  it('extracts text from resource content blocks', () => {
+    const response = {
+      content: [
+        {
+          type: 'resource',
+          resource: {
+            uri: 'file:///repo/README.md',
+            mimeType: 'text/markdown',
+            text: '# My Project\n\nA description.',
+          },
+        },
+      ],
+    };
+    const result = createCallResult(response);
+    expect(result.text()).toBe('# My Project\n\nA description.');
+  });
+
+  it('creates placeholder for binary resource content blocks', () => {
+    const response = {
+      content: [
+        {
+          type: 'resource',
+          resource: {
+            uri: 'file:///repo/logo.png',
+            mimeType: 'image/png',
+            blob: 'aGVsbG8=',
+          },
+        },
+      ],
+    };
+    const result = createCallResult(response);
+    expect(result.text()).toBe('[Binary resource: file:///repo/logo.png]');
+  });
+
+  it('extracts text from mixed content blocks including resources', () => {
+    const response = {
+      content: [
+        { type: 'text', text: 'Here is the file:' },
+        {
+          type: 'resource',
+          resource: {
+            uri: 'file:///repo/src/index.ts',
+            mimeType: 'text/typescript',
+            text: 'console.log("hello");',
+          },
+        },
+      ],
+    };
+    const result = createCallResult(response);
+    expect(result.text()).toBe('Here is the file:\nconsole.log("hello");');
+  });
+
+  it('parses JSON from resource text content', () => {
+    const response = {
+      content: [
+        {
+          type: 'resource',
+          resource: {
+            uri: 'file:///repo/config.json',
+            mimeType: 'application/json',
+            text: '{"key":"value"}',
+          },
+        },
+      ],
+    };
+    const result = createCallResult(response);
+    expect(result.json()).toEqual({ key: 'value' });
+  });
+});
+
 describe('createCallResult structured accessors', () => {
   it('content() returns nested raw content array', () => {
     const nested = [{ type: 'text', text: 'Hello' }];
