@@ -3,6 +3,7 @@
 ## [Unreleased]
 
 ### CLI
+- Detect auth failures from `error.code` metadata too, so Streamable HTTP/SSE transports still trigger OAuth correctly when messages omit the numeric status. (PR #94, thanks @KentonYu)
 - Preserve default imports when `mcporter config add` writes a config file, instead of forcing `"imports": []`.
 - OAuth: avoid crashing on headless Linux when `xdg-open` is unavailable; clear stale dynamic-port client registrations; close callback server if stale-client persistence reads fail. (PR #72, thanks @mgonto)
 - Added optional `oauthScope`/`oauth_scope` config override as an escape hatch for providers that require explicit scopes.
