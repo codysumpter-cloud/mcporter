@@ -235,6 +235,23 @@ describe('createCallResult resource extraction', () => {
     expect(result.text()).toBe('# My Project\n\nA description.');
   });
 
+  it('treats markdown resources as markdown output too', () => {
+    const response = {
+      content: [
+        {
+          type: 'resource',
+          resource: {
+            uri: 'file:///repo/README.md',
+            mimeType: 'text/markdown',
+            text: '# My Project\n\nA description.',
+          },
+        },
+      ],
+    };
+    const result = createCallResult(response);
+    expect(result.markdown()).toBe('# My Project\n\nA description.');
+  });
+
   it('creates placeholder for binary resource content blocks', () => {
     const response = {
       content: [

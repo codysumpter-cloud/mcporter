@@ -120,8 +120,12 @@ function collectCallContent(raw: unknown): CollectedCallContent {
       const resource = typedEntry.resource as Record<string, unknown> | undefined;
       if (resource && typeof resource === 'object') {
         const uri = typeof resource.uri === 'string' ? resource.uri : '';
+        const mimeType = typeof resource.mimeType === 'string' ? resource.mimeType : '';
         if (typeof resource.text === 'string') {
           textEntries.push(resource.text);
+          if (mimeType.toLowerCase().includes('markdown')) {
+            markdownEntries.push(resource.text);
+          }
           const parsed = tryParseJson(resource.text);
           if (parsed !== null) {
             jsonCandidates.push(parsed);
