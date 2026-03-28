@@ -236,9 +236,9 @@ console.log(result); // raw MCP envelope
 ## Compose Automations with the Runtime
 
 ```ts
-import { createManagedRuntime } from "mcporter";
+import { createRuntime } from "mcporter";
 
-const runtime = await createManagedRuntime();
+const runtime = await createRuntime();
 
 const tools = await runtime.listTools("context7");
 const result = await runtime.callTool("context7", "resolve-library-id", {
@@ -249,16 +249,16 @@ console.log(result); // prints JSON/text automatically because the CLI pretty-pr
 await runtime.close(); // shuts down transports and OAuth sessions
 ```
 
-Reach for `createManagedRuntime()` when you want the same keep-alive daemon behavior as the CLI, plus connection pooling, repeated calls, or advanced options such as explicit timeouts and log streaming. Use `createRuntime()` when you explicitly want direct runtime connections without daemon lifecycle management. Both runtimes reuse transports, refresh OAuth tokens, and only tear everything down when you call `runtime.close()`.
+Reach for `createRuntime()` when you need connection pooling, repeated calls, or advanced options such as explicit timeouts and log streaming. The runtime reuses transports, refreshes OAuth tokens, and only tears everything down when you call `runtime.close()`.
 
 ## Compose Tools in Code
 
 The runtime API is built for agents and scripts, not just humans at a terminal.
 
 ```ts
-import { createManagedRuntime, createServerProxy } from "mcporter";
+import { createRuntime, createServerProxy } from "mcporter";
 
-const runtime = await createManagedRuntime();
+const runtime = await createRuntime();
 const chrome = createServerProxy(runtime, "chrome-devtools");
 const linear = createServerProxy(runtime, "linear");
 

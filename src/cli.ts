@@ -14,7 +14,10 @@ import { handleList, printListHelp } from './cli/list-command.js';
 import { logError, logInfo } from './cli/logger-context.js';
 import { DEBUG_HANG, dumpActiveHandles, terminateChildProcesses } from './cli/runtime-debug.js';
 import { resolveConfigPath } from './config.js';
-import { createManagedRuntime, createRuntime } from './runtime.js';
+import { DaemonClient } from './daemon/client.js';
+import { createKeepAliveRuntime } from './daemon/runtime-wrapper.js';
+import { isKeepAliveServer } from './lifecycle.js';
+import { createRuntime } from './runtime.js';
 
 export { handleAuth, printAuthHelp } from './cli/auth-command.js';
 export { parseCallArguments } from './cli/call-arguments.js';
@@ -107,12 +110,22 @@ export async function runCli(argv: string[]): Promise<void> {
     return;
   }
 
-  const runtime = await createManagedRuntime({
-    ...runtimeOptions,
-    configPath: configPathResolved,
-    configExplicit: configResolution.explicit,
-    rootDir: rootOverride,
-  });
+  const baseRuntime = await createRuntime(runtimeOptionsWithPath);
+  const keepAliveServers = new Set(
+    baseRuntime
+      .getDefinitions()
+      .filter(isKeepAliveServer)
+      .map((entry) => entry.name)
+  );
+  const daemonClient =
+    keepAliveServers.size > 0
+      ? new DaemonClient({
+          configPath: configResolution.path,
+          configExplicit: configResolution.explicit,
+          rootDir: rootOverride,
+        })
+      : null;
+  const runtime = createKeepAliveRuntime(baseRuntime, { daemonClient, keepAliveServers });
 
   const inference = inferCommandRouting(command, args, runtime.getDefinitions());
   if (inference.kind === 'abort') {
