@@ -4,6 +4,14 @@
 
 - Nothing yet.
 
+## [0.8.1] - 2026-03-29
+
+### CLI
+- Bun-compiled/Homebrew binaries now embed the package version before boot, so `mcporter --version` reports the real release (for example `0.8.1`) instead of falling back to `0.0.0-dev`.
+
+### Tests
+- Added regression coverage for the Bun compile wrapper so future release builds keep the embedded runtime version intact.
+
 ## [0.8.0] - 2026-03-29
 
 ### CLI
