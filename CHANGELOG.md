@@ -1,6 +1,6 @@
 # mcporter Changelog
 
-## [Unreleased]
+## [0.8.2] - Unreleased
 
 - Nothing yet.
 
