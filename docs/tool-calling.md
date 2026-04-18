@@ -69,6 +69,7 @@ mcporter call --http-url https://mcp.example.com/mcp fetch_docs repoName=value
 ---
 
 **Tips**
+
 - Use `mcporter list <server>` to see parameter names, return types, and example invocations.
 - Optional fields hide by default; add `--all-parameters` when listing a server to reveal everything.
 - `mcporter auth <server|url>` accepts the same ad-hoc flags, so you can authenticate immediately after a 401 without editing config.

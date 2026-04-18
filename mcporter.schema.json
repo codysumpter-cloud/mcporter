@@ -127,9 +127,7 @@
                 "description": "Arguments for the OAuth command"
               }
             },
-            "required": [
-              "args"
-            ],
+            "required": ["args"],
             "additionalProperties": false
           },
           "oauth_command": {
@@ -144,9 +142,7 @@
                 "description": "Arguments for the OAuth command"
               }
             },
-            "required": [
-              "args"
-            ],
+            "required": ["args"],
             "additionalProperties": false
           },
           "bearerToken": {
@@ -200,9 +196,7 @@
                     "maximum": 9007199254740991
                   }
                 },
-                "required": [
-                  "mode"
-                ],
+                "required": ["mode"],
                 "additionalProperties": false
               }
             ],
@@ -237,15 +231,7 @@
       "type": "array",
       "items": {
         "type": "string",
-        "enum": [
-          "cursor",
-          "claude-code",
-          "claude-desktop",
-          "codex",
-          "windsurf",
-          "opencode",
-          "vscode"
-        ],
+        "enum": ["cursor", "claude-code", "claude-desktop", "codex", "windsurf", "opencode", "vscode"],
         "description": "Supported editor/client configurations to import MCP servers from"
       }
     },
@@ -254,9 +240,7 @@
       "description": "JSON Schema URL for IDE validation and autocomplete"
     }
   },
-  "required": [
-    "mcpServers"
-  ],
+  "required": ["mcpServers"],
   "additionalProperties": false,
   "description": "mcporter configuration file schema",
   "$id": "https://raw.githubusercontent.com/steipete/mcporter/main/mcporter.schema.json"

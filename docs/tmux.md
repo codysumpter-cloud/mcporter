@@ -13,11 +13,14 @@ Use `tmux` to verify whether a CLI command actually exits or is stalled on open 
    tmux new-session -ds mcporter-check "pnpm exec tsx src/cli.ts list"
    ```
 2. Wait a few seconds, then ask tmux if the session is still running:
+
    ```bash
    tmux has-session -t mcporter-check
    ```
+
    - Exit status **1** (`can't find session`) means the process exited normally.
    - Exit status **0** means the command is still running (or hung) inside the session.
+
 3. Capture the output without attaching:
    ```bash
    tmux capture-pane -pt mcporter-check | tail -n 40

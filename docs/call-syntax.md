@@ -8,11 +8,11 @@ read_when:
 
 `mcporter call` now understands two complementary styles:
 
-| Style | Example | Notes |
-|-------|---------|-------|
-| Flag-based (compatible) | `mcporter call linear.create_comment --issue-id LNR-123 --body "Hi"` | Use `key=value`, `key:value`, or `key: value` pairs—ideal for shell scripts. |
-| Function-call (expressive) | `mcporter call 'linear.create_comment(issueId: "LNR-123", body: "Hi")'` | Mirrors the pseudo-TypeScript signature shown by `mcporter list`; unlabeled values map to schema order. |
-| Structured output | `mcporter call 'linear.create_comment(...)' --output json` | Successful calls emit JSON bodies; failures emit `{ server, tool, issue }` envelopes so automation can react to auth/offline/http errors. |
+| Style                      | Example                                                                 | Notes                                                                                                                                     |
+| -------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Flag-based (compatible)    | `mcporter call linear.create_comment --issue-id LNR-123 --body "Hi"`    | Use `key=value`, `key:value`, or `key: value` pairs—ideal for shell scripts.                                                              |
+| Function-call (expressive) | `mcporter call 'linear.create_comment(issueId: "LNR-123", body: "Hi")'` | Mirrors the pseudo-TypeScript signature shown by `mcporter list`; unlabeled values map to schema order.                                   |
+| Structured output          | `mcporter call 'linear.create_comment(...)' --output json`              | Successful calls emit JSON bodies; failures emit `{ server, tool, issue }` envelopes so automation can react to auth/offline/http errors. |
 
 Both forms share the same validation pipeline, so required parameters, enums, and formats behave identically.
 

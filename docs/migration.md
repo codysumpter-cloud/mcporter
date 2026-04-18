@@ -33,11 +33,11 @@ npm install mcporter
 ## 4. Programmatic Usage
 
 ```ts
-import { createRuntime } from "mcporter";
+import { createRuntime } from 'mcporter';
 
-const runtime = await createRuntime({ configPath: "./config/mcporter.json" });
-const tools = await runtime.listTools("chrome-devtools");
-await runtime.callTool("chrome-devtools", "take_screenshot", { args: { url: "https://x.com" } });
+const runtime = await createRuntime({ configPath: './config/mcporter.json' });
+const tools = await runtime.listTools('chrome-devtools');
+await runtime.callTool('chrome-devtools', 'take_screenshot', { args: { url: 'https://x.com' } });
 await runtime.close();
 ```
 
@@ -46,12 +46,12 @@ Prefer `createRuntime` for long-lived agents so connections and OAuth tokens can
 ## 5. Single Call Helper
 
 ```ts
-import { callOnce } from "mcporter";
+import { callOnce } from 'mcporter';
 
 await callOnce({
-  server: "firecrawl",
-  toolName: "crawl",
-  args: { url: "https://anthropic.com" },
+  server: 'firecrawl',
+  toolName: 'crawl',
+  args: { url: 'https://anthropic.com' },
 });
 ```
 
@@ -65,12 +65,12 @@ Use `callOnce` for fire-and-forget invocations.
 
 ## 7. Troubleshooting
 
-| Symptom | Fix |
-| --- | --- |
-| Browser did not open | Copy the printed OAuth URL manually into a browser. |
-| Authorization hangs | Ensure the callback URL can bind to `127.0.0.1`; firewalls may block it. |
-| Tokens are stale | Delete `~/.mcporter/<server>/tokens.json` and retry. |
-| Stdio command fails | Pass `--root` to point at the repo root so relative paths resolve. |
+| Symptom              | Fix                                                                      |
+| -------------------- | ------------------------------------------------------------------------ |
+| Browser did not open | Copy the printed OAuth URL manually into a browser.                      |
+| Authorization hangs  | Ensure the callback URL can bind to `127.0.0.1`; firewalls may block it. |
+| Tokens are stale     | Delete `~/.mcporter/<server>/tokens.json` and retry.                     |
+| Stdio command fails  | Pass `--root` to point at the repo root so relative paths resolve.       |
 
 ---
 

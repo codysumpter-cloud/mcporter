@@ -10,6 +10,7 @@ A quick reference for the primary `mcporter` subcommands. Each command inherits
 `--config <file>` and `--root <dir>` to override where servers are loaded from.
 
 ## `mcporter list [server]`
+
 - Without arguments, lists every configured server (with live discovery + brief
   status).
 - With a server name, prints TypeScript-style signatures for each tool, doc
@@ -22,6 +23,7 @@ A quick reference for the primary `mcporter` subcommands. Each command inherits
   - `--timeout <ms>` – per-server timeout when enumerating all servers.
 
 ## `mcporter call <server.tool>`
+
 - Invokes a tool once and prints the response; supports positional arguments via
   pseudo-TS syntax and `--arg` flags.
 - Useful flags:
@@ -35,6 +37,7 @@ A quick reference for the primary `mcporter` subcommands. Each command inherits
   - `--tail-log` – stream tail output when the tool returns log handles.
 
 ## `mcporter generate-cli`
+
 - Produces a standalone CLI for a single MCP server (optionally bundling or
   compiling with Bun).
 - Key flags:
@@ -58,6 +61,7 @@ A quick reference for the primary `mcporter` subcommands. Each command inherits
     treats the URL as an ad-hoc server definition.
 
 ## `mcporter emit-ts <server>`
+
 - Emits TypeScript definitions (and optionally a ready-to-use client) describing
   a server’s tools. This reuses the same formatter as `mcporter list` so doc
   comments, signatures, and examples stay in sync.
